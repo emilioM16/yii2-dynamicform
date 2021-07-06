@@ -367,6 +367,24 @@
             });
         }
 
+        // "kartik-v/yii2-widget-datecontrol"
+        var $hasDateControl = $(widgetOptionsRoot.widgetItem).find('[data-krajee-datecontrol]');
+        if ($hasDateControl.length > 0) {
+            $hasDateControl.each(function() {
+                var id = $(this).attr('id');
+                var dcElementOptions = eval($(this).attr('data-krajee-datecontrol'));
+                if (id.indexOf(dcElementOptions.idSave) < 0) {
+                    // initialize the NEW DateControl element
+                    var cdNewOptions = $.extend(true, {}, dcElementOptions);
+                    cdNewOptions.idSave = $(this).parent().next().attr('id');
+                    $(this).parent().datetimepicker(eval($(this).attr('data-krajee-datetimepicker')));
+                    $(this).removeAttr('value name data-krajee-datecontrol');
+                    $(this).datecontrol(cdNewOptions);
+
+                }
+            });
+        }
+
         // "kartik-v/yii2-money"
         var $hasMaskmoney = $(widgetOptionsRoot.widgetItem).find('[data-krajee-maskMoney]');
         if ($hasMaskmoney.length > 0) {
